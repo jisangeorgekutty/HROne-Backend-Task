@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Query
 from models.schema import Product, ProductResponse
 from db.mongo import db
-from typing import List, Optional
+from typing import Optional
 
 router = APIRouter()
 
@@ -11,23 +11,17 @@ async def create_product(product: Product):
     return {"id": str(res.inserted_id)}
 
 @router.get("/products", status_code=200)
-async def list_products(
-    name: Optional[str] = None,
-    size: Optional[str] = None,
-    limit: int = 10,
-    offset: int = 0,
-):
+async def list_products(name: Optional[str] = None,size: Optional[str] = None,limit: int = 10,offset: int = 0):
     query = {}
     if name:
         query["name"] = {"$regex": name, "$options": "i"}
     if size:
         query["sizes.size"] = size
 
-    total_docs = await db.products.count_documents(query)
-    cursor = db.products.find(query).skip(offset).limit(limit)
+    res = db.products.find(query).skip(offset).limit(limit)
 
     products = []
-    async for product in cursor:
+    async for product in res:
         products.append({
             "id": str(product["_id"]),
             "name": product["name"],

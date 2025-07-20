@@ -2,7 +2,7 @@ from fastapi import APIRouter,HTTPException
 from models.schema import Order, OrderResponse
 from bson import ObjectId
 from db.mongo import db
-from typing import List
+
 
 router = APIRouter()
 
@@ -16,16 +16,16 @@ async def create_order(order: Order):
         
         if not product:
             raise HTTPException(status_code=404, detail=f"Product not found: {item.productId}")
-    order_dict = order.dict()
-    res = await db.orders.insert_one(order_dict)
+    order = order.dict()
+    res = await db.orders.insert_one(order)
     return {"id": str(res.inserted_id)}
 
 @router.get("/orders/{user_id}", status_code=200)
 async def get_orders(user_id: str, limit: int = 10, offset: int = 0):
-    orders_cursor = db.orders.find({"userId": user_id}).skip(offset).limit(limit)
+    orders = db.orders.find({"userId": user_id}).skip(offset).limit(limit)
 
     orders = []
-    async for order in orders_cursor:
+    async for order in orders:
         items = []
         total_price = 0.0
 
@@ -43,7 +43,7 @@ async def get_orders(user_id: str, limit: int = 10, offset: int = 0):
                 "qty": item["qty"]
             }
 
-            # Add to total
+            # Total price calculate
             if product:
                 total_price += item["qty"] * product["price"]
 
