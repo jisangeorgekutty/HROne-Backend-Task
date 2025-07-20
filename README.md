@@ -6,8 +6,7 @@ A sample backend application built using **FastAPI** and **MongoDB**, simulating
 
 ## 🚀 Live Demo
 
-> 🌐 [Deployed Base URL](https://your-app.onrender.com)  
-> ⚠️ Replace with your actual deployed URL (Render/Railway)
+> 🌐 [Deployed Base URL](https://hrone-backend-qnnf.onrender.com)  
 
 ---
 
