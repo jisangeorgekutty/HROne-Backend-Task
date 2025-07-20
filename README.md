@@ -39,6 +39,37 @@ HROne-Backend-Task/
 
 ---
 
+---
+
+## 📬 API Endpoints
+
+### 1. Create Product
+
+- **Endpoint**: `POST /products`
+- **Request**:
+```json
+{
+  "name": "T-Shirt",
+  "price": 399.0,
+  "sizes": [
+    {
+      "size": "M",
+      "quantity": 10
+    }
+  ]
+}
+```
+-**Response**:
+```json
+{
+  "id": "mongo_object_id"
+}
+```
+
+
+
+---
+
 ## ⚙️ Setup Instructions (Local)
 
 ### 1. Clone the Repo
@@ -64,8 +95,10 @@ Create a .env file:
 MONGO_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/hrone?retryWrites=true&w=majority
 ```
 
-### 3. Run Locally
+### 4. Run Locally
 
 ```bash
 uvicorn main:app --reload
 ```
+
+---
