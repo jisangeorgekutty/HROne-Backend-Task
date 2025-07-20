@@ -46,6 +46,7 @@ HROne-Backend-Task/
 ### 1. Create Product
 
 - **Endpoint**: `POST /products`
+
 - **Request**:
 ```json
 {
@@ -59,14 +60,87 @@ HROne-Backend-Task/
   ]
 }
 ```
--**Response**:
+- **Response**:
 ```json
 {
   "id": "mongo_object_id"
 }
 ```
 
+### 2. List Products
 
+- **Endpoint**: GET /products
+
+- **Response**:
+```json
+{
+  "data": [
+    {
+      "id": "product_id",
+      "name": "T-Shirt",
+      "price": 399.0
+    }
+  ],
+  "page": {
+    "next": 10,
+    "limit": 0,
+    "previous": -10
+  }
+}
+```
+
+### 3. Create Order
+
+- **Endpoint**: POST /orders
+
+- **Request**:
+```json
+{
+  "userId": "user_1",
+  "items": [
+    {
+      "productId": "mongo_object_id",
+      "qty": 2
+    }
+  ]
+}
+```
+- **Response**:
+```json
+{
+  "id": "order_id"
+}
+```
+
+### 4. Get User Orders
+
+- **Endpoint**: GET /orders/{userId}
+
+- **Response**:
+```json
+{
+  "data": [
+    {
+      "id": "order_id",
+      "items": [
+        {
+          "productDetails": {
+            "id": "product_id",
+            "name": "T-Shirt"
+          },
+          "qty": 2
+        }
+      ],
+      "total": 798.0
+    }
+  ],
+  "page": {
+    "next": 10,
+    "limit": 0,
+    "previous": -10
+  }
+}
+```
 
 ---
 
@@ -75,8 +149,8 @@ HROne-Backend-Task/
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/hrone-backend-task.git
-cd hrone-backend-task
+git clone https://github.com/jisangeorgekutty/HROne-Backend-Task.git
+cd HROne-Backend-Task
 ```
 
 ### 2. Install Dependencies
