@@ -22,10 +22,10 @@ async def create_order(order: Order):
 
 @router.get("/orders/{user_id}", status_code=200)
 async def get_orders(user_id: str, limit: int = 10, offset: int = 0):
-    orders = db.orders.find({"userId": user_id}).skip(offset).limit(limit)
+    cursor  = db.orders.find({"userId": user_id}).skip(offset).limit(limit)
 
     orders = []
-    async for order in orders:
+    async for order in cursor:
         items = []
         total_price = 0.0
 
